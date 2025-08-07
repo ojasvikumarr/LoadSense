@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  load_balancer:
+    build:
+      context: ./load_balancer
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - ML_SERVICE_URL=http://ml_module:5000
+      - BACKEND_SERVER_1=http://backend_server1:3001
+      - BACKEND_SERVER_2=http://backend_server2:3002
+    volumes:
+      - ./load_balancer:/app
+      - /app/node_modules
+    depends_on:
+      - ml_module
+      - backend_server1
+      - backend_server2
+    networks:
+      - loadsense_network
+
+  backend_server1:
+    build:
+      context: ./backend_servers
+      dockerfile: Dockerfile.server1
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend_servers:/app
+      - /app/node_modules
+    networks:
+      - loadsense_network
+
+  backend_server2:
+    build:
+      context: ./backend_servers
+      dockerfile: Dockerfile.server2
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./backend_servers:/app
+      - /app/node_modules
+    networks:
+      - loadsense_network
+
+  ml_module:
+    build:
+      context: ./ml_module
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ml_module:/app
+    networks:
+      - loadsense_network
+
+networks:
+  loadsense_network:
+    driver: bridge

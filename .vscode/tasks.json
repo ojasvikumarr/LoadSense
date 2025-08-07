@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Launch LoadSense",
+      "type": "shell",
+      "command": "bash",
+      "args": ["launch.sh"],
+      "windows": {
+        "command": "launch.bat"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Run Traffic Simulator",
+      "type": "shell",
+      "command": "cd ${workspaceFolder}/traffic_simulator && node simulator.js",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "group": "test"
+    }
+  ]
+}

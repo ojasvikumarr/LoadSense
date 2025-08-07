@@ -1,0 +1,15 @@
+{
+  "name": "traffic-simulator",
+  "version": "1.0.0",
+  "description": "HTTP traffic generator",
+  "main": "simulator.js",
+  "scripts": {
+    "start": "node simulator.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "moment": "^2.29.4",
+    "commander": "^11.1.0"
+  }
+}
